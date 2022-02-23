@@ -1,0 +1,45 @@
+#include <iostream>
+using namespace std;
+
+struct student {
+	double score;
+	int id;
+};
+
+int main() {
+	int average, best_score = 0;
+	const int SIZE = 3;
+	student st[SIZE];
+	cout << "1st number is score, 2nd is student's ID. You can enter them consecutively: ";
+	for (int i = 0; i < SIZE; i++) {
+		cin >> st[i].score >> st[i].id;
+	}
+
+	double counter = 0, sum = 0;
+	for (int j = 0; j < SIZE; j++) {
+		for (int i = 0; i < SIZE - 1; i++) {
+			if (st[i].score < st[i + 1].score) {
+				int temp_score = st[i].score;
+				int temp_id = st[i].id;
+				st[i].score = st[i + 1].score;
+				st[i].id = st[i + 1].id;
+				st[i + 1].score = temp_score;
+				st[i + 1].id = temp_id;
+			}
+		}
+	}
+
+	cout << "sorted score array: ";
+	for (int i = 0; i < SIZE; i++) {
+		sum += st[i].score;
+		counter++;
+		cout <<  st[i].score << ' ';
+		if (st[i].score >= 4)
+			best_score++;
+	}
+	average = sum / counter;
+
+	for (int i = 0; i < SIZE; i++) {
+		cout << endl << "student number " << i+1 << "'s grade: " << st[i].score << ", id: " << st[i].id;
+	}
+}
