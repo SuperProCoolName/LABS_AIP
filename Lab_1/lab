@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+
+struct weather {
+	double temperature, wind_speed;
+	string precipitation, wind;
+};
+
+weather get_data(weather z, int x) {
+	cout << "day " << x << ":\ntemperature: ";
+	cin >> z.temperature;
+	cout << "wind speed: ";
+	cin >> z.wind_speed;
+	cout << "precipitation: ";
+	cin >> z.precipitation;
+	return z;
+}
+
+int main() {
+	setlocale(LC_ALL, "rus");
+	string average_precipitation, flag;
+	double temperature_result =  0, wind_speed_result = 0;
+	int wind_speed_counter = 0, temperature_counter = 0, rain_counter = 0, snow_counter = 0;
+	weather z;
+	for (int x = 1; flag != "quit"; x++) {
+		z = get_data(z, x);
+		temperature_result += z.temperature;
+		temperature_counter++;
+		wind_speed_result += z.wind_speed;
+		wind_speed_counter++;
+		if (z.precipitation == "rain") {
+			rain_counter++;
+		}
+		else if (z.precipitation == "snow") {
+			snow_counter++;
+		}
+		cout << "type quit to finish: ";
+		cin >> flag;
+		cout << endl;
+	}
+	if (rain_counter > snow_counter) {
+		average_precipitation = "rain";
+	}
+	else {
+		average_precipitation = "snow";
+	}
+	cout << endl << endl << "Average temperature: " << temperature_result / temperature_counter << endl;;
+	cout << "Average wind speed: " << wind_speed_result / wind_speed_counter << endl;;
+	cout << "Precipitation: " << average_precipitation << endl << endl;
+	return 0;
+}
